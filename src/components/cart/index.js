@@ -40,13 +40,13 @@ export default function Cart() {
             {uniquePizzas.map((id) => {
                 const item = cart.find((item) => item.id === id);
                 const quantity = cart.filter((item) => item.id === id).length;
-                const totalPrice = quantity * item.price;
+                const totalPrice = quantity * item.precio;
 
             return (
                 <tr key={item.id}>
                     <td>{item.name.charAt(0).toUpperCase() + item.name.substring(1)}</td>
                     <td>{quantity}</td>
-                    <td>${item.price}</td>
+                    <td>${item.precio}</td>
                     <td>${totalPrice}</td>
                     <td>
                     <Button variant="success" size="sm" onClick={() => addToCart(item)}>
@@ -72,7 +72,7 @@ export default function Cart() {
     };
 
     const getTotalPrice = () => {
-        return cart.reduce((total, item) => total + item.price, 0);
+        return cart.reduce((total, item) => total + item.precio, 0);
     };
 
     return (
