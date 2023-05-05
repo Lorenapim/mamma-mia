@@ -26,7 +26,8 @@ export default function Cart() {
     const uniquePizzas = Array.from(new Set(cart.map((item) => item.id)));
 
     return (
-        <Table striped bordered hover>
+        <div className='my-4 mx-5 text-center'>
+        <Table>
             <thead>
             <tr>
                 <th>Nombre</th>
@@ -44,7 +45,12 @@ export default function Cart() {
 
             return (
                 <tr key={item.id}>
-                    <td>{item.name.charAt(0).toUpperCase() + item.name.substring(1)}</td>
+                    <td>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div>{item.name.charAt(0).toUpperCase() + item.name.substring(1)}</div>
+                        <div><img src={item.image} alt={item.name} width="50" height="50" /></div>
+                        </div>
+                    </td>
                     <td>{quantity}</td>
                     <td>${item.precio}</td>
                     <td>${totalPrice}</td>
@@ -60,14 +66,17 @@ export default function Cart() {
                 );
             })}
         </tbody>
-        <tfoot>
+        <tfoot  className='text-center'>
             <tr>
-                <td colSpan={3} className="text-right">Total:</td>
+                <td>Total:</td>
+                <td></td>
+                <td></td>
                 <td>${getTotalPrice()}</td>
                 <td></td>
             </tr>
         </tfoot>
         </Table>
+        </div>
         );
     };
 
@@ -76,8 +85,8 @@ export default function Cart() {
     };
 
     return (
-        <div className="cart">
-        <h2>Carrito de compras</h2>
+        <div className="cart my-5 mx-5">
+        <h2>Detalle de compra</h2>
         {renderTable()}
         </div>
     );

@@ -3,12 +3,13 @@ import { useContext } from 'react';
 import Context from '../../context';
 import Banner from '../../img/banner.png';
 import { useNavigate } from "react-router-dom"
+import './styles.css'
 
 
 export default () => {
 
     
-    const { pizzas, setPizzas, cart, setCart } = useContext(Context);
+    const { pizzas, cart, setCart } = useContext(Context);
 
 
     const navigate = useNavigate();
@@ -23,7 +24,8 @@ export default () => {
 
     return ( 
         <div className="home-class">
-            <div> <img src={Banner} alt="banner" />
+            <div className="banner-container">
+                <img src={Banner} alt="banner" />
             </div>
             <Container>
                 <Row>
@@ -43,8 +45,9 @@ export default () => {
                                     </Card.Text>
                                     <hr></hr>
                                     <div className='gap-3 d-md-flex justify-content-md-center'>
+                                    <Button variant="danger" onClick={() => addToCart(pizza)}>Agregar al carrito</Button>
+                                    <Button variant="primary" onClick={() => navigate('/cart')}>Ver carrito</Button>
                                     <Button variant="primary" onClick={() => goToPizza(pizza.id)}>Ver Más</Button>
-                                    <Button variant="danger" onClick={() => addToCart(pizza)}>Añadir</Button>
                                     </div>
                                 </Card.Body>
                             </Card>

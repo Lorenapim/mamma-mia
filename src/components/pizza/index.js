@@ -44,8 +44,9 @@ export default () => {
                         <hr></hr>
                         <h5>Precio: ${pizza.precio}</h5>
                         <div className='gap-3 d-md-flex justify-content-md-center'>
-                        <Button variant="primary" onClick={() => addToCart(pizza)}>Agregar al carrito</Button>
+                        <Button variant="danger" onClick={() => addToCart(pizza)}>Agregar al carrito</Button>
                         <Button variant="primary" onClick={() => navigate('/')}>Volver</Button>
+                        <Button variant="primary" onClick={() => navigate('/cart')}>Ver carrito</Button>
                         </div>
                     </Card.Body>
                 </Card>
