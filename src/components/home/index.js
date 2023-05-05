@@ -7,22 +7,18 @@ import { useNavigate } from "react-router-dom"
 
 export default () => {
 
-    const { pizzas, setPizzas } = useContext(Context);
+    
+    const { pizzas, setPizzas, cart, setCart } = useContext(Context);
+
 
     const navigate = useNavigate();
 
     const goToPizza = (id) => {
-      navigate(`/pizza/${id}`);
+    navigate(`/pizza/${id}`);
     };
 
-    const handleClick = (id) => {
-        const newPizzas = pizzas.map(pizza => {
-            if (pizza.id === id){
-                return {...pizza, favorite: true}
-            }
-            return pizza
-        })
-        setPizzas(newPizzas)
+    const addToCart = (pizza) => {
+        setCart([...cart, pizza]);
     }
 
     return ( 
@@ -43,12 +39,12 @@ export default () => {
                                         <ul>{pizza.ingredients.map((ingrediente, index) => (
                                             <li key={index}>{ingrediente}</li>))}
                                         </ul>
-                                        <p>$ {pizza.precio}</p>
+                                        <h5>$ {pizza.precio}</h5>
                                     </Card.Text>
                                     <hr></hr>
                                     <div className='gap-3 d-md-flex justify-content-md-center'>
                                     <Button variant="primary" onClick={() => goToPizza(pizza.id)}>Ver Más</Button>
-                                    <Button variant="danger" onClick={() => handleClick(pizza.id)}>Añadir</Button>
+                                    <Button variant="danger" onClick={() => addToCart(pizza)}>Añadir</Button>
                                     </div>
                                 </Card.Body>
                             </Card>

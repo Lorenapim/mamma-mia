@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Button } from "react-bootstrap"
+import { Row, Col, Button, Card} from "react-bootstrap"
 import { useParams } from "react-router-dom";
 import { useContext } from 'react'
 import Context from '../../context'
@@ -12,28 +12,45 @@ export default () => {
     const { id } = useParams()
 
     const [pizza, setPizza] = useState({});
-    const { pizzas } = useContext(Context);
+    const { pizzas, setPizzas, cart, setCart } = useContext(Context);
+
+    const addToCart = (pizza) => {
+        setCart([...cart, pizza]);
+    }
 
     useEffect(() => {
         let pizza = pizzas.find(val => val.id == id);
         setPizza(pizza);
     },[id])
 
+    const formattedName = pizza.name ? pizza.name.charAt(0).toUpperCase() + pizza.name.slice(1) : '';
+
     return (
-        <>
-            {pizza ?
-                <Row>
-                    <Col className="d-flex justify-content-center my-2"><img src={pizza.image}></img></Col>
-                    <Col className="my-5">
-                        <h1>{pizza.name}</h1>
-                        <p style={ {width: '500px'}}>{pizza.descripcion}</p>
-                        <p>$ {pizza.precio}</p>
-                        <p>Ingredientes: {pizza.ingredients}</p>
-                        <Button variant="primary" onClick={() => navigate("/")}>volver a la página principal</Button>
-                    </Col>
-                </Row> :
-                "loading"
-            }
-        </>
+        <Row>
+            <Col className='my-4' md={{ span: 6, offset: 3 }}>
+                <Card>
+                    <Card.Img variant="top" src={pizza.image} />
+                    <Card.Body>
+                        <h1>{formattedName}</h1>
+                        <hr></hr>
+                        <Card.Text>
+                            {pizza.descripcion}
+                        </Card.Text>
+                        <ul>
+                            {pizza.ingredients && pizza.ingredients.map((ingredient, index) => (
+                                <li key={index}>{ingredient}</li>
+                            ))}
+                        </ul>
+                        <hr></hr>
+                        <h5>Precio: ${pizza.precio}</h5>
+                        <div className='gap-3 d-md-flex justify-content-md-center'>
+                        <Button variant="primary" onClick={() => addToCart(pizza)}>Agregar al carrito</Button>
+                        <Button variant="primary" onClick={() => navigate('/')}>Volver</Button>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </Row>
     )
+    
 }

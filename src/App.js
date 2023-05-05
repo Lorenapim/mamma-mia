@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 function App() {
 
   const [pizzas, setPizzas] = useState([]);
-  const globalState = { pizzas, setPizzas };
+  const [cart, setCart] = useState([]);
+  const globalState = { pizzas, setPizzas, cart, setCart };
 
   useEffect(() => {
     setPizzas(pizzasData.map((pizza, index) => {
